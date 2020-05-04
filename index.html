@@ -37,76 +37,86 @@
         </nav>
       </header>
       <div class="app" >
-        <h4> According to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">MDN</a>, the typical web audio workflow looks like this:</h4>
-        <ol>
-          <li>
-            Create Audio Context
-          </li>
-          <li>
-            Inside the context, create sources - such as audio, oscillator, or stream
-          </li>
-          <li>
-            Create effect nodes, such as reverb, biquad filter, panner, compressor
-          </li>
-          <li>
-            Choose final destination of audio, for example your system speakers
-          </li>
-          <li>
-            Connect the sources up to the effects, and th eeffects to the destination.
-          </li>
-   </ol>
-   <div class="synth-one" >
-     <p>
-       First, create an <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext"> audio context</a> to which all this audio stuff will attach.
-     </p>
-     <pre>
-       <code class="javascript" >
+        <section class="intro">
+          <h2> According to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">MDN</a>, the typical web audio workflow looks like this:</h2>
+          <ol>
+            <li>
+              Create Audio Context
+            </li>
+            <li>
+              Inside the context, create sources - such as audio, oscillator, or stream
+            </li>
+            <li>
+              Create effect nodes, such as reverb, biquad filter, panner, compressor
+            </li>
+            <li>
+              Choose final destination of audio, for example your system speakers
+            </li>
+            <li>
+              Connect the sources up to the effects, and th eeffects to the destination.
+            </li>
+          </ol>
+        </section>
+        <section class="synth-one" >
+          <h2>
+            Create an Audio Context
+          </h2>
+          <p>
+            First, create an <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext"> audio context</a> to which all this audio stuff will attach.
+          </p>
+          <pre>
+            <code class="javascript" >
  window.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-       </code>
-     </pre>
-     <p>
-       Then, create an <a href="https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode"> audio source</a>. I went with an oscillator because that's kinda how synths work, yea? Start with an oscillator, move on from there.
-     </p>
-     <pre>
-       <code class="javascript" >
+            </code>
+          </pre>
+          <p>
+            Then, create an <a href="https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode"> audio source</a>. I went with an oscillator because that's kinda how synths work, yea? Start with an oscillator, move on from there.
+          </p>
+          <pre>
+            <code class="javascript" >
   const oscillator = audioCtx.createOscillator();
   oscillator.type = 'square';
-       </code>
-     </pre>
-     <p>
-       Setting the frequency of the wave gets funky. To do so, you invoke the <code>frequency.setValueAtTime()</code> function of the oscillator. The <code>frequency</code> property of the oscillator is an <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam">AudioParam</a>, specifically an a-rate <code>AudioParam</code>, which means it takes the current audio parameter value for each sample frame of the audio signal. To <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime">setValueAtTime</a> is to schedule an instant change to the <code>AudioParam</code>, that is, the oscillator's frequency, at a precise time. That precise time being now (or as close to it as I can get). I set the frequency to 440hz, A4.
-     </p>
-     <pre>
-       <code class="javascript" >
+            </code>
+          </pre>
+          <p>
+            Setting the frequency of the wave gets funky. To do so, you invoke the <code>frequency.setValueAtTime()</code> function of the oscillator. The <code>frequency</code> property of the oscillator is an <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam">AudioParam</a>, specifically an a-rate <code>AudioParam</code>, which means it takes the current audio parameter value for each sample frame of the audio signal. To <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime">setValueAtTime</a> is to schedule an instant change to the <code>AudioParam</code>, that is, the oscillator's frequency, at a precise time. That precise time being now (or as close to it as I can get). I set the frequency to 440hz, A4.
+          </p>
+          <pre>
+            <code class="javascript" >
   oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-       </code>
-     </pre>
-     <p>
-       Now, connect the oscillator to the <code>audioContext</code>'s destination, which appears to default to whatever your browser is currently playing audio out of.
-     </p>
-     <pre>
-       <code class="javascript" >
+            </code>
+          </pre>
+          <p>
+            Now, connect the oscillator to the <code>audioContext</code>'s destination, which appears to default to whatever your browser is currently playing audio out of.
+          </p>
+          <pre>
+            <code class="javascript" >
   oscillator.connect(audioCtx.destination);
-       </code>
-     </pre>
-     <p>
-       Play audio!
-     </p>
-     <pre>
-       <code class="javascript" >
+            </code>
+          </pre>
+          <p>
+            Play audio!
+          </p>
+          <pre>
+            <code class="javascript" >
   oscillator.start();
-       </code>
-     </pre>
+            </code>
+          </pre>
+          <div class="synth" >
+            <button class="stop" type="button">
+              Stop
+            </button>
+            <button class="start" type="button">
+              Start
+            </button>
+          </div>
+        </section>
+        <section class="synth-two">
+          <h2>
+            Add some effect nodes
+          </h2>
+        </section>
 
-     <div class="synth" >
-       <button class="stop" type="button">
-         Stop
-       </button>
-       <button class="resume" type="button">
-         Resume
-       </button>
-     </div>
-   </div>
       </div>
     </main>
     <script src="index.js" ></script>

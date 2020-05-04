@@ -14,28 +14,39 @@ function app() {
   // create web audio api context
   window.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   // create Oscillator node
-  const oscillator = audioCtx.createOscillator();
+  osc1();
+  osc2();
+}
+
+function osc2() {
+  const oscillator = window.audioCtx.createOscillator();
+  oscillators.osc2 = oscillator;
+  oscillator.type = 'square';
+  oscillator.frequency.setValueAtTime(440, window.audioCtx.currentTime); // value in hertz
+  oscillator.connect(window.audioCtx.destination);
+}
+function osc1() {
+  const oscillator = window.audioCtx.createOscillator();
   oscillators.osc1 = oscillator;
   oscillator.type = 'square';
-  oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
-  oscillator.connect(audioCtx.destination);
-  oscillator.start();
-  stop();
+  oscillator.frequency.setValueAtTime(440, window.audioCtx.currentTime); // value in hertz
+  oscillator.connect(window.audioCtx.destination);
+
 }
 
-function stop() {
-  window.audioCtx.suspend();
+function stop(osc) {
+  oscillators[osc].stop();
 }
 
-function resume() {
-  window.audioCtx.resume();
+function start(osc) {
+  oscillators[osc].start();
 }
 
 function setUpListeners() {
-  document.querySelector('button.stop').addEventListener('click', () => {
-    stop();
+  document.querySelector('.synth-one button.stop').addEventListener('click', () => {
+    stop('osc1');
   });
-  document.querySelector('button.resume').addEventListener('click', () => {
-    resume();
+  document.querySelector('.synth-one button.start').addEventListener('click', () => {
+    start('osc1');
   });
 }
