@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Caleb Jay Rogers">
+    <meta name="description" content="Messing around with Javascript Audio API">
+    <meta name="keywords" content="Caleb Rogers, Caleb Jay, komali_2, frontend, programming, javascript, audio api, synth">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="styles.css" rel="stylesheet">
+    <title>JSYNTH - Playground</title>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>
+          Mess with this Synth
+        </h1>
+        <h3>
+          <small>
+            Updated: <time datetime="2020-05-14">May, 2020</time>
+          </small>
+        </h3>
+        <nav>
+          <ul>
+           <li>
+              <a href="https://github.com/komali2/jsynth">Github</a>
+            </li>
+            <li>
+              <a href="https://blog.calebjay.com/">Blog</a>
+            </li>
+            <li>
+              <a href="https://calebjay.com">My Website</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div class="app" >
+        <section class="synth-one">
+          <h2>
+            A SYNTH
+          </h2>
+          <div class="board osc1">
+            <div class="control-set" >
+              <button class="start">
+                Start
+              </button>
+              <button class="stop">
+                Stop
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+    <script src="playground.js"></script>
+    <script>
+	  (function() {
+		  var script = document.createElement('script');
+		  window.counter = 'https://calebjay_com.goatcounter.com/count'
+		  script.async = 1;
+		  script.src = '//gc.zgo.at/count.js';
+
+		  var ins = document.getElementsByTagName('script')[0];
+		  ins.parentNode.insertBefore(script, ins)
+	  })();
+    </script>
+  </body>
+</html>
