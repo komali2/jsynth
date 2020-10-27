@@ -37,6 +37,7 @@ function attachListeners(osc) {
       //   oscillators[osc].volumeIterate(direction);
       // });
   });
+}
 function setUpListeners() {
   Object.keys(oscillators).forEach(osc => attachListeners(osc));
 }
@@ -52,19 +53,20 @@ class Synth {
     this.oscillator = window.audioCtx.createOscillator();
     this.oscillator.type = 'square';
     this.oscillator.frequency.setValueAtTime(440, window.audioCtx.currentTime); // value in hertz
+    this.oscillator.start();
   }
   createGainNode() {
     this.gain = window.audioCtx.createGain();
   }
   connectNodes() {
-    this.oscillator.connect(this.gain);
+    // this.oscillator.connect(this.gain);
     this.gain.connect(window.audioCtx.destination);
   }
   stopOsc() {
-    this.oscillator.stop();
+    this.oscillator.disconnect(this.gain);
   }
   startOsc() {
-    this.oscillator.start();
+    this.oscillator.connect(this.gain);
   }
   volumeUp() {
     const currentVolume = this.gain.gain.value;
