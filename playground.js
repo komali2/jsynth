@@ -30,6 +30,9 @@ function attachListeners(osc) {
   document.querySelector(`.${osc} button.start`).addEventListener('click', () => {
     oscillators[osc].startOsc();
   });
+  document.querySelector(`.${osc} button.set-wave`).addEventListener('click', () => {
+    oscillators[osc].setWave();
+  });
   document.querySelectorAll(`.${osc} button.volume`).forEach( (el) => {
     console.log(el);
       // el.addEventListener('click', (e) => {
@@ -85,5 +88,25 @@ class Synth {
         this.volumeDown();
         break;
     }
+  }
+  setWave() {
+    const realA = Number(document.querySelector(`.${"osc1"} input[name="realA"]`).value);
+    const realB = Number(document.querySelector(`.${"osc1"} input[name="realB"]`).value);
+    const imagA = Number(document.querySelector(`.${"osc1"} input[name="imagA"]`).value);
+    const imagB = Number(document.querySelector(`.${"osc1"} input[name="imagB"]`).value);
+    const wave = new Wave(realA, realB, imagA, imagB).wave;
+    this.oscillator.setPeriodicWave(wave);
+  }
+}
+
+class Wave {
+  constructor(realA, realB, imagA, imagB) {
+    this.realList = new Float32Array(2);
+    this.imagList = new Float32Array(2);
+    this.realList[0] = realA;
+    this.realList[1] = realB;
+    this.imagList[0] = imagA;
+    this.imagList[1] = imagB;
+    this.wave = window.audioCtx.createPeriodicWave(this.realList, this.imagList, { disableNormalization: true });
   }
 }
